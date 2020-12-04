@@ -30,12 +30,42 @@ func readFile() []int {
 
 func main() {
     inputVals := readFile()
+    solution1(inputVals)
+    solution2(inputVals)
+}
+
+func solution1(inputVals []int) {
     m := make(map[int] bool)
     for i := 0; i < len(inputVals); i++ {
         if  m[2020 - inputVals[i]] {
-            fmt.Println((2020 - inputVals[i]) * inputVals[i])
+            fmt.Println("solution1:", (2020 - inputVals[i]) * inputVals[i])
             break
         }
         m[inputVals[i]] = true
     }
+
+}
+
+func solution2(inputVals []int) {
+    m := make(map[int]map[int]int)
+    for i := 0; i < len(inputVals); i++ {
+        for j := i + 1; j < len(inputVals) ; j++ {
+            val1 := inputVals[i]
+            val2 := inputVals[j]
+            m[val1 + val2] = map[int]int{val1: val2}
+        }
+    }
+    for k := 0; k < len(inputVals); k++ {
+        remainingVal := 2020 - inputVals[k]
+        if m[remainingVal] != nil {
+            var l int
+            for k := range m[remainingVal] {
+                l = k
+            }
+            fmt.Println("solution2:", inputVals[k] * l * m[remainingVal][l])
+            break
+        }
+    }
+    //2020 - 624 = 1396
+    //1396 is map[277:1119]
 }
