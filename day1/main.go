@@ -30,11 +30,12 @@ func readFile() []int {
 
 func main() {
     inputVals := readFile()
+    m := make(map[int] bool)
     for i := 0; i < len(inputVals); i++ {
-        for j := i + 1; j < len(inputVals); j++ {
-            if (inputVals[i] + inputVals[j] == 2020) {
-                fmt.Println(inputVals[i] * inputVals[j])
-            }
+        if  m[2020 - inputVals[i]] {
+            fmt.Println((2020 - inputVals[i]) * inputVals[i])
+            break
         }
+        m[inputVals[i]] = true
     }
 }
