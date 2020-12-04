@@ -13,9 +13,9 @@ func check(e error) {
     }
 }
 
-func main() {
+func readFile() []int {
     file, err := os.Open("./input")
-    check(err) // Check for error reading input file
+    check(err)
     defer file.Close()
 
     var lines []int
@@ -25,5 +25,10 @@ func main() {
         check(err)
         lines = append(lines, val)
     }
-    fmt.Println(lines)
+    return lines
+}
+
+func main() {
+    inputVals := readFile()
+    fmt.Println(inputVals)
 }
