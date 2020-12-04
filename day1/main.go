@@ -58,14 +58,12 @@ func solution2(inputVals []int) {
     for k := 0; k < len(inputVals); k++ {
         remainingVal := 2020 - inputVals[k]
         if m[remainingVal] != nil {
-            var l int
-            for k := range m[remainingVal] {
-                l = k
+            var key int
+            for l := range m[remainingVal] {
+                key = l
             }
-            fmt.Println("solution2:", inputVals[k] * l * m[remainingVal][l])
+            fmt.Println("solution2:", inputVals[k] * key * m[remainingVal][key])
             break
         }
     }
-    //2020 - 624 = 1396
-    //1396 is map[277:1119]
 }
