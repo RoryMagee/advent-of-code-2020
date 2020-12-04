@@ -31,7 +31,7 @@ func readFile() []int {
 func main() {
     inputVals := readFile()
     for i := 0; i < len(inputVals); i++ {
-        for j := 1; j < len(inputVals); j++ {
+        for j := i + 1; j < len(inputVals); j++ {
             if (inputVals[i] + inputVals[j] == 2020) {
                 fmt.Println(inputVals[i] * inputVals[j])
             }
