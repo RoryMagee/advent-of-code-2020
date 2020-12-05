@@ -4,21 +4,28 @@ import (
     "fmt"
     "os"
     "bufio"
+    "strings"
 )
 
 func main() {
     fmt.Println("Solution 1")
     inputVals := readFile("./input")
-    validPasses := 0
+    //validPasses := 0
     for i := 0; i < len(inputVals); i++ {
         pass := inputVals[i]
-        fmt.Println(pass)
-
+        r, c, p := splitPass(pass)
+        fmt.Println(r, c, p)
     }
 }
 
-func splitPass(passString string) rule string, char string, password string {
-    split
+func splitPass(passString string) (rule string, char string, password string) {
+    // 7-19 l: llvllllllclllflllll
+    //fmt.Println(passString)
+    split := strings.Split(passString, " ")
+    r := split[0]
+    c := split[1][:1]
+    p := split[2]
+    return r, c, p
 }
 
 func validPass(rule string, char string, password string) bool {
