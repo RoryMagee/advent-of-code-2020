@@ -10,26 +10,39 @@ import (
 func main() {
     inputVals := readFile("./input")
     startPosition := [2]int{0, 0}
-    // startPosition[0] = vertical
-    // startPosition[1] = horizontal
-    // inputvals[row][column]
+    solution1Rule := [2]int{1, 3}
+    solution2Rules := [5][2]int {
+        {1, 1},
+        {1, 3},
+        {1, 5},
+        {1, 7},
+        {2, 1},
+    }
+    solution2Answer := 1
+    solution1Answer := countTrees(solution1Rule, startPosition, inputVals)
+    for _, r := range solution2Rules {
+        solution2Answer = solution2Answer * countTrees(r, startPosition, inputVals)
+    }
+    fmt.Println("Solution1:", solution1Answer)
+    fmt.Println("Solution2:", solution2Answer)
+}
+
+func countTrees(rule [2]int, startPosition [2]int, inputVals [][]string) int {
     treeCount := 0
     for startPosition[0] < len(inputVals) {
         if inputVals[startPosition[0]][startPosition[1]] == "#" {
             treeCount++
         }
         // Increment positions
-        diff := len(inputVals[1]) - (startPosition[1] + 3)
+        diff := len(inputVals[1]) - (startPosition[1] + rule[1])
         if diff <= 0 {
             startPosition[1] = abs(diff)
         } else {
-            startPosition[1] = startPosition[1] + 3
+            startPosition[1] = startPosition[1] + rule[1]
         }
-        startPosition[0] = startPosition[0] + 1
-        fmt.Println("startPosition[0]", startPosition[0], "startPosition[1]",
-        startPosition[1])
+        startPosition[0] = startPosition[0] + rule[0]
     }
-    fmt.Println(treeCount)
+    return treeCount
 }
 
 func abs(i int) int {
