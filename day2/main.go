@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-    fmt.Println("Solution 1")
     inputVals := readFile("./input")
     sl1CorrectPasswords := 0
     sl2CorrectPasswords := 0
@@ -70,7 +69,6 @@ func checkPositions(lowerChar string, upperChar string, char string) bool {
 }
 
 func solution2(rule [2]int, passString string, char string) bool {
-    fmt.Println(passString, char, rule[0], rule[1])
     lowerCharIdx := rule[0]
     upperCharIdx := rule[1]
     lowerChar := passString[lowerCharIdx-1: lowerCharIdx]
