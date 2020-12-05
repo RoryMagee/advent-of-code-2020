@@ -7,6 +7,12 @@ import (
     "strconv"
 )
 
+func main() {
+    inputVals := readFile()
+    solution1(inputVals)
+    solution2(inputVals)
+}
+
 func check(e error) {
     if e != nil {
         panic(e)
@@ -28,12 +34,6 @@ func readFile() []int {
     return lines
 }
 
-func main() {
-    inputVals := readFile()
-    solution1(inputVals)
-    solution2(inputVals)
-}
-
 func solution1(inputVals []int) {
     m := make(map[int] bool)
     for i := 0; i < len(inputVals); i++ {
@@ -50,9 +50,9 @@ func solution2(inputVals []int) {
     m := make(map[int]map[int]int)
     for i := 0; i < len(inputVals); i++ {
         for j := i + 1; j < len(inputVals) ; j++ {
-            val1 := inputVals[i]
-            val2 := inputVals[j]
-            m[val1 + val2] = map[int]int{val1: val2}
+            a := inputVals[i]
+            b := inputVals[j]
+            m[a + b] = map[int]int{a: b}
         }
     }
     for k := 0; k < len(inputVals); k++ {
