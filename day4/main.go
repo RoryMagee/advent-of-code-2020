@@ -12,14 +12,20 @@ func main() {
     validPassports := 0
     for _, p := range inputVals {
         fields := getPassportFields(p)
-        if checkFields(fields) {
+        if checkFieldsExist(fields) && validateFields(fields) {
             validPassports++
         }
     }
     fmt.Println(validPassports)
 }
 
-func checkFields(fields []string) bool {
+func validateFields(fields [][]string) bool {
+    fmt.Println(fields)
+    fmt.Println("-----")
+    return false
+}
+
+func checkFieldsExist(fields [][]string) bool {
     required := [7]string {
         "byr",
         "iyr",
@@ -29,6 +35,7 @@ func checkFields(fields []string) bool {
         "ecl",
         "pid",
     }
+
     retValue := true
     for _, field := range required {
         if !isValueInArr(fields, field) {
@@ -39,20 +46,21 @@ func checkFields(fields []string) bool {
     return retValue
 }
 
-func isValueInArr(arr []string, key string) bool {
+func isValueInArr(arr [][]string, key string) bool {
     for _, val := range arr {
-        if val == key {
+        if val[0] == key {
             return true
         }
     }
     return false
 }
 
-func getPassportFields(passportDetails string) []string {
+func getPassportFields(passportDetails string) [][]string {
     parsedDetails := strings.Fields(passportDetails)
-    var fields []string
+    var fields [][]string
     for _, field := range parsedDetails {
-        fields = append(fields, field[0:3])
+        splitFields := strings.Split(field, ":")
+        fields = append(fields, splitFields) // [hgt, byr, icd, ...]
     }
     return fields
 }
