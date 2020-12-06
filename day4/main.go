@@ -7,22 +7,34 @@ import (
     "strings"
 )
 
+func test() {
+
+}
+
 func main() {
     inputVals := readFile("./input")
-    validPassports := 0
+    solution1 := 0
+    solution2 := 0
     for _, p := range inputVals {
         fields := getPassportFields(p)
+        if checkFieldsExist(fields) {
+            solution1++
+        }
         if checkFieldsExist(fields) && validateFields(fields) {
-            validPassports++
+            solution2++
         }
     }
-    fmt.Println(validPassports)
+    fmt.Println("Solution1:", solution1)
+    fmt.Println("Solution2:", solution2)
 }
 
 func validateFields(fields [][]string) bool {
-    fmt.Println(fields)
-    fmt.Println("-----")
-    return false
+    for _, field := range fields {
+        if !inputIsValid(field[0], field[1]) {
+            return false
+        }
+    }
+    return true
 }
 
 func checkFieldsExist(fields [][]string) bool {
