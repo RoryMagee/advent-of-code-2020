@@ -1,12 +1,23 @@
 package main
 
 import (
-    "fmt"
+	"bufio"
+	"fmt"
+	"os"
 )
 
 func main() {
-    res := weirdBinarySearchTing(127, "FBFBBFF", "F", "B")
-    fmt.Println(res)
+    inputVals := readFile("./input")
+    highest := 0
+    for _, seat := range inputVals {
+        row := weirdBinarySearchTing(127, seat[:7], "F", "B")
+        col := weirdBinarySearchTing(7, seat[7:], "L", "R")
+        result := (row * 8) + col
+        if result > highest {
+            highest = result
+        }
+    }
+    fmt.Println(highest)
 }
 
 func weirdBinarySearchTing(max int, seq string, upperChar string, lowerChar string) int {
@@ -26,4 +37,23 @@ func weirdBinarySearchTing(max int, seq string, upperChar string, lowerChar stri
         }
     }
     return max
+}
+
+func readFile(path string) []string {
+    file, err := os.Open(path)
+    check(err)
+    defer file.Close()
+
+    var lines []string
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        lines = append(lines, scanner.Text())
+    }
+    return lines
+}
+
+func check(e error) {
+    if e != nil {
+        panic(e)
+    }
 }
