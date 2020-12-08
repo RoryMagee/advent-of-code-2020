@@ -15,12 +15,13 @@ func main() {
         solution1 = solution1 + len(unique)
         solution2 = solution2 + unanimous(unique, v)
     }
+
     fmt.Println("solution1:", solution1)
     fmt.Println("solution2:", solution2)
 }
 
 func unanimous(unique map[string] bool, group []string) int {
-    noInGroup := len(unique)
+    noInGroup := len(group)
     count := 0
     groupAsStr := ""
     for _, answer := range group {
@@ -31,7 +32,6 @@ func unanimous(unique map[string] bool, group []string) int {
             count = count + 1
         }
     }
-    fmt.Println(unique, group, count)
     return count
 }
 
