@@ -8,36 +8,41 @@ import (
 
 func main() {
     inputVals := readFile("./input")
-    fmt.Println(inputVals)
-    total := 0
+    solution1 := 0
     for _, v := range inputVals {
-        total = total + findUnique(v)
+        fmt.Println(v)
+        solution1 = solution1 + findUnique(v)
     }
-    fmt.Println(total)
+    fmt.Println("solution1:", solution1)
 }
 
-func findUnique(group string) int {
+
+func findUnique(group []string) int {
     m := make(map[string] bool)
-    for _, g := range group {
+    str := ""
+    for _, arr := range group {
+        str = str + arr
+    }
+    for _, g := range str {
         m[string(g)] = true
     }
     return len(m)
 }
 
-func readFile(path string) []string {
+func readFile(path string) [][]string {
     file, err := os.Open(path)
     check(err)
     defer file.Close()
-    var str string
-    var groups []string
+    var str []string
+    var groups [][]string
     scanner := bufio.NewScanner(file)
     for scanner.Scan() {
         line := scanner.Text()
         if line == "" {
             groups = append(groups, str)
-            str = ""
+            str = nil
         } else {
-            str = str + line
+            str = append(str, line)
         }
     }
     groups = append(groups, str)
