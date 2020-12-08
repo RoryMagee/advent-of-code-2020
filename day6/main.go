@@ -9,15 +9,43 @@ import (
 func main() {
     inputVals := readFile("./input")
     solution1 := 0
+    solution2 := 0
     for _, v := range inputVals {
-        fmt.Println(v)
-        solution1 = solution1 + findUnique(v)
+        unique := findUnique(v)
+        solution1 = solution1 + len(unique)
+        solution2 = solution2 + unanimous(unique, v)
     }
     fmt.Println("solution1:", solution1)
+    fmt.Println("solution2:", solution2)
 }
 
+func unanimous(unique map[string] bool, group []string) int {
+    noInGroup := len(unique)
+    count := 0
+    groupAsStr := ""
+    for _, answer := range group {
+        groupAsStr = groupAsStr + answer
+    }
+    for key := range unique {
+        if countOccurances(groupAsStr, key) == noInGroup {
+            count = count + 1
+        }
+    }
+    fmt.Println(unique, group, count)
+    return count
+}
 
-func findUnique(group []string) int {
+func countOccurances(str string, key string) int {
+    count := 0
+    for _, character := range str {
+        if string(character) == key {
+            count = count + 1
+        }
+    }
+    return count
+}
+
+func findUnique(group []string) map[string] bool {
     m := make(map[string] bool)
     str := ""
     for _, arr := range group {
@@ -26,7 +54,7 @@ func findUnique(group []string) int {
     for _, g := range str {
         m[string(g)] = true
     }
-    return len(m)
+    return m
 }
 
 func readFile(path string) [][]string {
