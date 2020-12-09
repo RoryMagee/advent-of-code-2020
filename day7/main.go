@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 type node struct {
@@ -23,14 +24,26 @@ func newNode(val int, color string) *node {
     return node
 }
 
-func newTree(root *node) *tree {
+func newTree(val int, color string) *tree {
+    root := newNode(val, color)
+    tree := new(tree)
+    tree.root = root
+    return tree
 }
 
 func main() {
-    fmt.Println("Day 7")
     inputVals := readFile("./input")
     for _, line := range inputVals {
         fmt.Println(line)
+    }
+    parseInput(inputVals)
+}
+
+func parseInput(input []string)  {
+    for idx, line := range input {
+        fmt.Println(idx, line)
+        splitLine := strings.Split(line, "contain")
+        fmt.Println(splitLine)
     }
 }
 
