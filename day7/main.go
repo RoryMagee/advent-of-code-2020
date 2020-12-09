@@ -7,7 +7,23 @@ import (
 )
 
 type node struct {
+    color string
+    val int
+    children []*node
+}
 
+type tree struct {
+    root *node
+}
+
+func newNode(val int, color string) *node {
+    node := new(node)
+    node.color = color
+    node.val = val
+    return node
+}
+
+func newTree(root *node) *tree {
 }
 
 func main() {
