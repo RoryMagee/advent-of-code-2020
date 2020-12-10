@@ -8,43 +8,58 @@ import (
 )
 
 type node struct {
+    counted bool
     color string
-    val int
     children []*node
-}
-
-type tree struct {
-    root *node
-}
-
-func newNode(val int, color string) *node {
-    node := new(node)
-    node.color = color
-    node.val = val
-    return node
-}
-
-func newTree(val int, color string) *tree {
-    root := newNode(val, color)
-    tree := new(tree)
-    tree.root = root
-    return tree
 }
 
 func main() {
     inputVals := readFile("./input")
-    for _, line := range inputVals {
-        fmt.Println(line)
+    parsedInput := parseInput(inputVals)
+    for idx, input := range parsedInput {
+        fmt.Println(idx, input)
     }
-    parseInput(inputVals)
+    //nodeArr := make(map[string] *node)
+    //for _, line := range inputVals {
+        //splitLine := strings.Split(line, " ")
+        //color := strings.Join(splitLine[:2], " ")
+        //_ := getNode(nodeArr, color)
+        /* Here we want to loop through the rest of the items in the string
+           and add them to currenNode's children array
+        */
+        //restOfString := strings.Split(strings.Join(splitLine[4:], " "), ", ")
+        //for _, remaining := range restOfString {
+        //    bag := 
+        //    currentNode.children = append(currentNode.children, bag)
+        //}
+    //}
 }
 
-func parseInput(input []string)  {
-    for idx, line := range input {
-        fmt.Println(idx, line)
-        splitLine := strings.Split(line, "contain")
-        fmt.Println(splitLine[1])
+func parseInput(input []string) []string { // [startBag, bag2, bag3]
+    parsedInput := []string{}
+    for _, line := range input {
+        splitLine := strings.Split(line, " ")
+        startBag := strings.Join(splitLine[:2], " ")
+        parsedInput = append(parsedInput, startBag)
+        index := 5
+        for index + 4 < len(splitLine) {
+            nextBag := strings.Join(splitLine[index:index+2], " ")
+            index = index + 4
+            parsedInput = append(parsedInput, nextBag)
+        }
     }
+    return parsedInput
+}
+
+func getNode(nodeArr map[string] *node, nodeName string) *node{
+    if nodeArr[nodeName] == nil {
+        newNode := new(node)
+        newNode.color = nodeName
+        newNode.counted = false
+        newNode.children = []*node{}
+        nodeArr[nodeName] = newNode
+    }
+    return nodeArr[nodeName]
 }
 
 func readFile(path string) []string {
