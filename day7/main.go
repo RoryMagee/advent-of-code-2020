@@ -43,7 +43,7 @@ func parseInput(input []string)  {
     for idx, line := range input {
         fmt.Println(idx, line)
         splitLine := strings.Split(line, "contain")
-        fmt.Println(splitLine)
+        fmt.Println(splitLine[1])
     }
 }
 
