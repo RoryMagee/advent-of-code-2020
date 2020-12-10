@@ -16,37 +16,35 @@ type node struct {
 func main() {
     inputVals := readFile("./input")
     parsedInput := parseInput(inputVals)
-    for idx, input := range parsedInput {
-        fmt.Println(idx, input)
-    }
-    //nodeArr := make(map[string] *node)
-    //for _, line := range inputVals {
-        //splitLine := strings.Split(line, " ")
-        //color := strings.Join(splitLine[:2], " ")
-        //_ := getNode(nodeArr, color)
+    nodeArr := make(map[string] *node)
+    for _, line := range parsedInput {
+        currentNode := getNode(nodeArr, line[0])
         /* Here we want to loop through the rest of the items in the string
            and add them to currenNode's children array
         */
         //restOfString := strings.Split(strings.Join(splitLine[4:], " "), ", ")
-        //for _, remaining := range restOfString {
-        //    bag := 
-        //    currentNode.children = append(currentNode.children, bag)
-        //}
-    //}
+        for i := 1; i < len(line); i++ {
+            bag := getNode(nodeArr, line[i])
+            currentNode.children = append(currentNode.children, bag)
+        }
+    }
+    fmt.Println(nodeArr["shiny yellow"].&children)
 }
 
-func parseInput(input []string) []string { // [startBag, bag2, bag3]
-    parsedInput := []string{}
+func parseInput(input []string) [][]string {
+    parsedInput := [][]string{}
     for _, line := range input {
+        parsedLine := []string{}
         splitLine := strings.Split(line, " ")
         startBag := strings.Join(splitLine[:2], " ")
-        parsedInput = append(parsedInput, startBag)
+        parsedLine = append(parsedLine, startBag)
         index := 5
         for index + 4 < len(splitLine) {
             nextBag := strings.Join(splitLine[index:index+2], " ")
             index = index + 4
-            parsedInput = append(parsedInput, nextBag)
+            parsedLine = append(parsedLine, nextBag)
         }
+        parsedInput = append(parsedInput, parsedLine)
     }
     return parsedInput
 }
