@@ -14,7 +14,7 @@ type node struct {
 }
 
 func main() {
-    inputVals := readFile("./input")
+    inputVals := readFile("./testinput")
     parsedInput := parseInput(inputVals)
     nodeArr := make(map[string] *node)
     for _, line := range parsedInput {
@@ -22,14 +22,15 @@ func main() {
         /* Here we want to loop through the rest of the items in the string
            and add them to currenNode's children array
         */
-        //restOfString := strings.Split(strings.Join(splitLine[4:], " "), ", ")
         for i := 1; i < len(line); i++ {
             bag := getNode(nodeArr, line[i])
             currentNode.children = append(currentNode.children, bag)
         }
     }
-    fmt.Println(nodeArr["shiny yellow"].&children)
+    fmt.Println(nodeArr["light red"].children)
 }
+
+
 
 func parseInput(input []string) [][]string {
     parsedInput := [][]string{}
@@ -41,6 +42,7 @@ func parseInput(input []string) [][]string {
         index := 5
         for index + 4 < len(splitLine) {
             nextBag := strings.Join(splitLine[index:index+2], " ")
+            fmt.Println("next bag >", nextBag)
             index = index + 4
             parsedLine = append(parsedLine, nextBag)
         }
