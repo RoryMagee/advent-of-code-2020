@@ -34,15 +34,16 @@ func main() {
 
 func parseInput(input []string) [][]string {
     parsedInput := [][]string{}
-    for _, line := range input {
+    for idx, line := range input {
         parsedLine := []string{}
         splitLine := strings.Split(line, " ")
         startBag := strings.Join(splitLine[:2], " ")
         parsedLine = append(parsedLine, startBag)
         index := 5
-        for index + 4 < len(splitLine) {
+        fmt.Println(len(splitLine))
+        for index + 4 <= len(splitLine) {
             nextBag := strings.Join(splitLine[index:index+2], " ")
-            fmt.Println("next bag >", nextBag)
+            fmt.Println(idx, "next bag >", nextBag)
             index = index + 4
             parsedLine = append(parsedLine, nextBag)
         }
