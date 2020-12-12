@@ -40,8 +40,7 @@ func parseInput(input []string) [][]string {
         startBag := strings.Join(splitLine[:2], " ")
         parsedLine = append(parsedLine, startBag)
         index := 5
-        fmt.Println(index, len(splitLine))
-        for index + 4 < len(splitLine) {
+        for index + 2 < len(splitLine) {
             nextBag := strings.Join(splitLine[index:index+2], " ")
             fmt.Println(idx, "next bag >", nextBag)
             index = index + 4
