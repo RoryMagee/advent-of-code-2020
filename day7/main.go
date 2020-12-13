@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strings"
 )
@@ -27,14 +26,22 @@ func main() {
             currentNode.children = append(currentNode.children, bag)
         }
     }
-    fmt.Println(nodeArr["light red"].children)
+    //totalCount := 0
 }
-
-
+func countBags(walkList []node) int {
+    count := 0
+    for _, bag := range walkList {
+        if !bag.counted {
+            count++
+        }
+        bag.counted = true
+    }
+    return count
+}
 
 func parseInput(input []string) [][]string {
     parsedInput := [][]string{}
-    for idx, line := range input {
+    for _, line := range input {
         parsedLine := []string{}
         splitLine := strings.Split(line, " ")
         startBag := strings.Join(splitLine[:2], " ")
@@ -42,7 +49,6 @@ func parseInput(input []string) [][]string {
         index := 5
         for index + 2 < len(splitLine) {
             nextBag := strings.Join(splitLine[index:index+2], " ")
-            fmt.Println(idx, "next bag >", nextBag)
             index = index + 4
             parsedLine = append(parsedLine, nextBag)
         }
