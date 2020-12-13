@@ -29,9 +29,7 @@ func main() {
     }
     total := 0
     for _, bag := range nodeArr {
-        gold := findGold(bag, nil)
-        total = total + gold
-        fmt.Println(gold)
+        total = total + findGold(bag, nil)
     }
     fmt.Println(total)
 }
