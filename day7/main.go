@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+    "fmt"
 	"os"
 	"strings"
 )
@@ -13,7 +14,7 @@ type node struct {
 }
 
 func main() {
-    inputVals := readFile("./testinput")
+    inputVals := readFile("./input")
     parsedInput := parseInput(inputVals)
     nodeArr := make(map[string] *node)
     for _, line := range parsedInput {
@@ -26,9 +27,15 @@ func main() {
             currentNode.children = append(currentNode.children, bag)
         }
     }
-    //totalCount := 0
+    total := 0
+    for _, bag := range nodeArr {
+        gold := findGold(bag, nil)
+        total = total + gold
+        fmt.Println(gold)
+    }
+    fmt.Println(total)
 }
-func countBags(walkList []node) int {
+func countBags(walkList []*node) int {
     count := 0
     for _, bag := range walkList {
         if !bag.counted {
@@ -37,6 +44,27 @@ func countBags(walkList []node) int {
         bag.counted = true
     }
     return count
+}
+
+func findGold(n *node, walkList []*node) int {
+    total := 0
+    if walkList == nil {
+        walkList = []*node{}
+    }
+
+    if n.color == "shiny gold" {
+        total = total + countBags(walkList)
+        return total
+    }
+
+    walkList = append(walkList, n)
+
+    for _, c := range n.children {
+        total = total + findGold(c, walkList)
+    }
+
+    walkList = walkList[:len(walkList)-1]
+    return total
 }
 
 func parseInput(input []string) [][]string {
