@@ -28,10 +28,10 @@ func s2ParseInput(input []string) map[string][]*bag  {
         index := 4
         for index + 3 < len(splitLine) {
             nextBag := bag{}
-            nextBag.numberOf, _ = strconv.Atoi(strings.Join(splitLine[index:index+1], " "))
-            nextBag.color = strings.Join(splitLine[index+1:index+2], " ")
+            nextBag.numberOf, _ = strconv.Atoi(splitLine[index])
+            nextBag.color = strings.Join(splitLine[index+1:index+3], " ")
             m[startBag] = append(m[startBag], &nextBag)
-            index = index + 3
+            index = index + 4
         }
     }
     return m
