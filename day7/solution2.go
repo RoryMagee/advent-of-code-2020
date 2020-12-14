@@ -8,30 +8,37 @@ import (
 
 type bag struct {
     color string
-    numberOf int
+    bagCount int
     counted bool
 }
 
 func solution2() {
     inputVals := readFile("./testinput2")
     bagMap := s2ParseInput(inputVals)
-    count := 0
-    for _, bag := range bagMap["shiny gold"] {
-        count = count + walk(bag, count, bagMap)
-    }
-    fmt.Println("COunt", count)
+    count := 1
+    fmt.Println("LEN", len(bagMap["shiny gold"]))
+    count = walk(bagMap["shiny gold"], bagMap)
+    fmt.Println("Count", count)
 }
 
-func walk(b *bag, count int, bagMap map[string][]*bag) int {
-    c := count
-    if b.counted == false {
-        c = c + b.numberOf
-        for _, newBag := range bagMap[b.color] {
-            walk(newBag, c, bagMap)
-        }
-        b.counted = false
+/*
+Go to array of bags inside shiny gold
+Go to the bottom "layer" of bags in each of those bags recursively
+when you're at the bottom of a bag 
+*/
+
+func walk(b []*bag, bagMap map[string][]*bag) int {
+    //if len(b) < 1 {
+    //    return count
+    //}
+    count := 0
+    for _, bag := range b {
+        fmt.Println(bag.color)
+        fmt.Println(count)
+        count = count * walk(bagMap[bag.color], bagMap)
+        fmt.Println(count)
     }
-    return c
+    return count
 }
 
 func s2ParseInput(input []string) map[string][]*bag  {
@@ -42,7 +49,7 @@ func s2ParseInput(input []string) map[string][]*bag  {
         index := 4
         for index + 3 < len(splitLine) {
             nextBag := bag{}
-            nextBag.numberOf, _ = strconv.Atoi(splitLine[index])
+            nextBag.bagCount, _ = strconv.Atoi(splitLine[index])
             nextBag.color = strings.Join(splitLine[index+1:index+3], " ")
             nextBag.counted = false
             m[startBag] = append(m[startBag], &nextBag)
