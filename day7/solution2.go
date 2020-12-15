@@ -13,11 +13,9 @@ type bag struct {
 }
 
 func solution2() {
-    inputVals := readFile("./testinput2")
+    inputVals := readFile("./input")
     bagMap := s2ParseInput(inputVals)
-    count := 1
-    fmt.Println("LEN", len(bagMap["shiny gold"]))
-    count = walk(bagMap["shiny gold"], bagMap)
+    count := walk(bagMap["shiny gold"][0], bagMap, -1)
     fmt.Println("Count", count)
 }
 
@@ -27,16 +25,17 @@ Go to the bottom "layer" of bags in each of those bags recursively
 when you're at the bottom of a bag 
 */
 
-func walk(b []*bag, bagMap map[string][]*bag) int {
-    //if len(b) < 1 {
-    //    return count
-    //}
-    count := 0
-    for _, bag := range b {
-        fmt.Println(bag.color)
-        fmt.Println(count)
-        count = count * walk(bagMap[bag.color], bagMap)
-        fmt.Println(count)
+func walk(b *bag, bagMap map[string][]*bag, num int) int {
+    if num == -1 {
+        num = 1
+    }
+    if len(bagMap[b.color]) < 1 {
+        return num * b.bagCount
+    }
+    count := b.bagCount
+    for _, nextBag := range bagMap[b.color] {
+        t := walk(nextBag, bagMap, num)
+        count = count + t
     }
     return count
 }
