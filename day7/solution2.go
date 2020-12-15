@@ -15,7 +15,11 @@ type bag struct {
 func solution2() {
     inputVals := readFile("./input")
     bagMap := s2ParseInput(inputVals)
-    count := walk(bagMap["shiny gold"][0], bagMap, -1)
+    //count := walk(bagMap["shiny gold"][0], bagMap, -1)
+    count := 0
+    for _, bg := range bagMap["shiny gold"] {
+        count = count + walk(bg, bagMap, -1)
+    }
     fmt.Println("Count", count)
 }
 
@@ -32,7 +36,8 @@ func walk(b *bag, bagMap map[string][]*bag, num int) int {
     if len(bagMap[b.color]) < 1 {
         return num * b.bagCount
     }
-    count := b.bagCount
+    num = num * b.bagCount
+    count := num
     for _, nextBag := range bagMap[b.color] {
         t := walk(nextBag, bagMap, num)
         count = count + t
