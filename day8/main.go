@@ -16,10 +16,11 @@ type instruction struct {
 
 func main() {
     fmt.Println("day 8")
-    inputVals := readFile("./s2testinput")
+    inputVals := readFile("./input")
     parsedInput := parseInput(inputVals)
     //solution1Terminates, solution1Acc := checkIfProgramTerminates(parsedInput)
     //fmt.Println("Solution 1", solution1Terminates, solution1Acc)
+    reset(parsedInput)
     for i := 0; i < len(parsedInput); i++ {
         if parsedInput[i].operation == "jmp" {
             parsedInput[i].operation = "nop"
@@ -27,6 +28,8 @@ func main() {
             parsedInput[i].operation = "jmp"
         }
         t, a := checkIfProgramTerminates(parsedInput)
+        reset(parsedInput)
+        printOperations(parsedInput)
         if t == true {
             fmt.Println("solution2", a)
             break
@@ -43,6 +46,12 @@ func main() {
 func check (e error) {
     if e != nil {
         panic(e)
+    }
+}
+
+func reset(instructions []*instruction) {
+    for _, i := range instructions {
+        i.visited = false
     }
 }
 
