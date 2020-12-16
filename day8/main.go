@@ -18,13 +18,23 @@ func main() {
     fmt.Println("day 8")
     inputVals := readFile("./input")
     parsedInput := parseInput(inputVals)
+    solution1Terminates, solution1Acc := checkIfProgramTerminates(parsedInput)
+    fmt.Println("Solution 1", solution1Terminates, solution1Acc)
+}
+
+func check (e error) {
+    if e != nil {
+        panic(e)
+    }
+}
+
+func checkIfProgramTerminates(gameInput []*instruction) (bool, int) {
     acc := 0
     nextInstructionIndex := 0
     for true {
-        fmt.Println("nextInstructionIndex", nextInstructionIndex)
-        i := parsedInput[nextInstructionIndex]
+        i := gameInput[nextInstructionIndex]
         if i.visited == true {
-            break
+            return false, acc
         }
         i.visited = true
         if i.operation == "nop" {
@@ -41,13 +51,7 @@ func main() {
             continue
         }
     }
-    fmt.Println("Solution 1", acc)
-}
-
-func check (e error) {
-    if e != nil {
-        panic(e)
-    }
+    return true, acc
 }
 
 func parseInput(input []string) []*instruction {
