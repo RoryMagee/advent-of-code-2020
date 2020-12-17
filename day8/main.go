@@ -18,13 +18,60 @@ func main() {
     fmt.Println("day 8")
     inputVals := readFile("./input")
     parsedInput := parseInput(inputVals)
+    //solution1Terminates, solution1Acc := checkIfProgramTerminates(parsedInput)
+    //fmt.Println("Solution 1", solution1Terminates, solution1Acc)
+    reset(parsedInput)
+    for i := 0; i < len(parsedInput); i++ {
+        if parsedInput[i].operation == "jmp" {
+            parsedInput[i].operation = "nop"
+        } else if  parsedInput[i].operation == "nop" {
+            parsedInput[i].operation = "jmp"
+        }
+        t, a := checkIfProgramTerminates(parsedInput)
+        reset(parsedInput)
+        printOperations(parsedInput)
+        if t == true {
+            fmt.Println("solution2", a)
+            break
+        } else {
+            if parsedInput[i].operation == "jmp" {
+                parsedInput[i].operation = "nop"
+            } else if  parsedInput[i].operation == "nop" {
+                parsedInput[i].operation = "jmp"
+            }
+        }
+    }
+}
+
+func check (e error) {
+    if e != nil {
+        panic(e)
+    }
+}
+
+func reset(instructions []*instruction) {
+    for _, i := range instructions {
+        i.visited = false
+    }
+}
+
+func printOperations(instructions []*instruction) {
+    for _, i := range instructions {
+        fmt.Printf("%s, ", i.operation)
+    }
+    fmt.Printf("\n")
+}
+
+func checkIfProgramTerminates(gameInput []*instruction) (bool, int) {
     acc := 0
     nextInstructionIndex := 0
     for true {
-        fmt.Println("nextInstructionIndex", nextInstructionIndex)
-        i := parsedInput[nextInstructionIndex]
-        if i.visited == true {
+        if nextInstructionIndex > len(gameInput)-1 {
             break
+        }
+        i := gameInput[nextInstructionIndex]
+        if i.visited == true {
+            return false, acc
         }
         i.visited = true
         if i.operation == "nop" {
@@ -41,13 +88,7 @@ func main() {
             continue
         }
     }
-    fmt.Println("Solution 1", acc)
-}
-
-func check (e error) {
-    if e != nil {
-        panic(e)
-    }
+    return true, acc
 }
 
 func parseInput(input []string) []*instruction {
