@@ -9,7 +9,8 @@ import (
 
 func main() {
     PREAMBLE_LEN := 25
-    inputVals := readFile("./input")
+    inputVals := readFile("./testinput")
+    fmt.Println(sumExists(inputVals, 72))
     prevIndex := 0
     for i := PREAMBLE_LEN + 1; i < len(inputVals); i++ {
         preamble := inputVals[prevIndex: prevIndex + PREAMBLE_LEN]
