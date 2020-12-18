@@ -15,11 +15,10 @@ func main() {
     for i := PREAMBLE_LEN + 1; i < len(inputVals); i++ {
         preamble := inputVals[prevIndex: prevIndex + PREAMBLE_LEN]
         target := inputVals[i]
-        fmt.Println(preamble, target)
+        //fmt.Println(preamble, target)
         res := sumExists(preamble, target)
         if !res {
             fmt.Println(target)
-            break
         }
         prevIndex++
     }
