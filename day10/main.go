@@ -10,14 +10,23 @@ import (
 func main() {
     fmt.Println("Day 10")
     inputVals := readFile("./testinput")
-    for _, line := range inputVals {
-        fmt.Println(line)
-    }
+    sortArr(inputVals)
+    fmt.Println(inputVals)
 }
 
 func check(e error) {
     if e != nil {
         panic(e)
+    }
+}
+
+func sortArr(inputVals []int) {
+    for x := 1; x  < len(inputVals); x++ {
+        current := inputVals[x]
+        for y :=x-1; y >= 0 && inputVals[y] > current; y-- {
+            inputVals[y+1] = inputVals[y]
+            inputVals[y] = current
+        }
     }
 }
 
