@@ -9,16 +9,15 @@ import (
 
 func main() {
     PREAMBLE_LEN := 25
-    inputVals := readFile("./testinput")
-    fmt.Println(sumExists(inputVals, 72))
+    inputVals := readFile("./input")
     prevIndex := 0
-    for i := PREAMBLE_LEN + 1; i < len(inputVals); i++ {
+    for i := PREAMBLE_LEN; i < len(inputVals); i++ {
         preamble := inputVals[prevIndex: prevIndex + PREAMBLE_LEN]
         target := inputVals[i]
-        //fmt.Println(preamble, target)
         res := sumExists(preamble, target)
         if !res {
-            fmt.Println(target)
+            fmt.Println("Finished", target)
+            break
         }
         prevIndex++
     }
