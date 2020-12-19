@@ -11,7 +11,21 @@ func main() {
     PREAMBLE_LEN := 25
     inputVals := readFile("./input")
     solution1 := findVulnerability(inputVals, PREAMBLE_LEN)
-    fmt.Println(solution1)
+    solution2 := solution2(inputVals, solution1)
+    fmt.Println(solution2)
+}
+
+func solution2(inputVals []int, target int) int {
+    for i := 0; i < len(inputVals); i++ {
+        for j := i + 1; j < len(inputVals); j++ {
+            arr := inputVals[i:j]
+            if sumSlice(arr) == target {
+                fmt.Println(arr)
+                return getLargest(arr) + getSmallest(arr)
+            }
+        }
+    }
+    return -1
 }
 
 func findVulnerability(inputVals []int, PREAMBLE_LEN int) int{
@@ -29,6 +43,34 @@ func findVulnerability(inputVals []int, PREAMBLE_LEN int) int{
         prevIndex++
     }
     return returnVal
+}
+
+func getLargest(slice []int) int {
+    var largest int
+    for _, num := range slice {
+        if num > largest {
+            largest = num
+        }
+    }
+    return largest
+}
+
+func getSmallest(slice []int) int {
+    smallest := slice[0]
+    for _, num := range slice[1:] {
+        if num < smallest {
+            smallest = num
+        }
+    }
+    return smallest
+}
+
+func sumSlice(slice []int) int {
+    total := 0
+    for _, num := range slice {
+        total = total + num
+    }
+    return total
 }
 
 func readFile(path string) []int {
