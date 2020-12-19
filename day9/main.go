@@ -10,17 +10,25 @@ import (
 func main() {
     PREAMBLE_LEN := 25
     inputVals := readFile("./input")
+    solution1 := findVulnerability(inputVals, PREAMBLE_LEN)
+    fmt.Println(solution1)
+}
+
+func findVulnerability(inputVals []int, PREAMBLE_LEN int) int{
     prevIndex := 0
+    returnVal := -1
     for i := PREAMBLE_LEN; i < len(inputVals); i++ {
-        preamble := inputVals[prevIndex: prevIndex + PREAMBLE_LEN]
+        preamble := inputVals[prevIndex:prevIndex + PREAMBLE_LEN]
         target := inputVals[i]
         res := sumExists(preamble, target)
         if !res {
-            fmt.Println("Finished", target)
+            // Answer found
+            returnVal = target
             break
         }
         prevIndex++
     }
+    return returnVal
 }
 
 func readFile(path string) []int {
