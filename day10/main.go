@@ -8,19 +8,23 @@ import (
 )
 
 func main() {
-    fmt.Println("Day 10")
-    inputVals := readFile("./testinput")
+    inputVals := readFile("./input")
     sortArr(inputVals)
-    oneJump := 0
-    threeJump := 0
+    inputVals = append(inputVals, inputVals[len(inputVals)-1] + 3)
+    inputVals = append([]int{0}, inputVals...)
+    diffIsOne := 0
+    diffIsThree := 0
     for i := 0; i < len(inputVals)-1; i++ {
-        if inputVals[i+1] - inputVals[i] == 1 {
-            oneJump++
-        } else {
-            threeJump++
+        curr := inputVals[i]
+        next := inputVals[i+1]
+        diff := next - curr
+        if diff == 1 {
+            diffIsOne++
+        } else if diff == 3 {
+            diffIsThree++
         }
     }
-    fmt.Println(oneJump * threeJump)
+    fmt.Println("solution1", diffIsOne * diffIsThree)
 }
 
 func check(e error) {
