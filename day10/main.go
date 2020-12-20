@@ -8,12 +8,19 @@ import (
 )
 
 func main() {
-    inputVals := readFile("./input")
-    solution1 := findNumberOfConnections(append([]int(nil), inputVals...))
+    inputVals := readFile("./testinput")
+    solution1 := countNumberOfLinks(append([]int(nil), inputVals...))
+    solution2 := countCombinations(append([]int(nil), inputVals...))
     fmt.Println("Solution 1", solution1)
+    fmt.Println("Solution 2", solution2)
 }
 
-func findNumberOfConnections(inputVals []int) int {
+func countCombinations(inputVals []int) int {
+    sortArr(inputVals)
+    return 1
+}
+
+func countNumberOfLinks(inputVals []int) int {
     sortArr(inputVals)
     inputVals = append(inputVals, inputVals[len(inputVals)-1] + 3)
     inputVals = append([]int{0}, inputVals...)
