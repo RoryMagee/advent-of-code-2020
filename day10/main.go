@@ -11,7 +11,16 @@ func main() {
     fmt.Println("Day 10")
     inputVals := readFile("./testinput")
     sortArr(inputVals)
-    fmt.Println(inputVals)
+    oneJump := 0
+    threeJump := 0
+    for i := 0; i < len(inputVals)-1; i++ {
+        if inputVals[i+1] - inputVals[i] == 1 {
+            oneJump++
+        } else {
+            threeJump++
+        }
+    }
+    fmt.Println(oneJump * threeJump)
 }
 
 func check(e error) {
