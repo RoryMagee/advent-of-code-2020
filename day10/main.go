@@ -9,6 +9,11 @@ import (
 
 func main() {
     inputVals := readFile("./input")
+    solution1 := findNumberOfConnections(append([]int(nil), inputVals...))
+    fmt.Println("Solution 1", solution1)
+}
+
+func findNumberOfConnections(inputVals []int) int {
     sortArr(inputVals)
     inputVals = append(inputVals, inputVals[len(inputVals)-1] + 3)
     inputVals = append([]int{0}, inputVals...)
@@ -24,7 +29,7 @@ func main() {
             diffIsThree++
         }
     }
-    fmt.Println("solution1", diffIsOne * diffIsThree)
+    return diffIsOne * diffIsThree
 }
 
 func check(e error) {
