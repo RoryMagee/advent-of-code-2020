@@ -5,13 +5,16 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+    "time"
 )
 
 func main() {
     inputVals := readFile("./testinput")
+    start := time.Now()
     solution1 := countNumberOfLinks(append([]int(nil), inputVals...))
+    finish := time.Since(start)
     solution2 := countCombinations(append([]int(nil), inputVals...))
-    fmt.Println("Solution 1", solution1)
+    fmt.Println("Solution 1", solution1, finish)
     fmt.Println("Solution 2", solution2)
 }
 
