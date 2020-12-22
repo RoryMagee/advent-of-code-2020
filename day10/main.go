@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-    inputVals := readFile("./input")
+    inputVals := readFile("./mediuminput")
     start := time.Now()
     solution1 := countNumberOfLinks(append([]int{0}, inputVals...))
     finish := time.Since(start)
