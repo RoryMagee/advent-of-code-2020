@@ -9,18 +9,32 @@ import (
 )
 
 func main() {
-    inputVals := readFile("./testinput")
+    inputVals := readFile("./input")
     start := time.Now()
-    solution1 := countNumberOfLinks(append([]int(nil), inputVals...))
+    solution1 := countNumberOfLinks(append([]int{0}, inputVals...))
     finish := time.Since(start)
-    solution2 := countCombinations(append([]int(nil), inputVals...))
+    start = time.Now()
+    solution2 := countCombinations(append([]int{0}, inputVals...))
+    finish = time.Since(start)
     fmt.Println("Solution 1", solution1, finish)
-    fmt.Println("Solution 2", solution2)
+    fmt.Println("Solution 2", solution2, finish)
 }
 
-func countCombinations(inputVals []int) int {
-    sortArr(inputVals)
-    return 1
+func countCombinations(valArr []int) int {
+    sortArr(valArr)
+    diffArr := make([]int, len(valArr)-1)
+    diffArr = append([]int{1}, diffArr...)
+    for i := 1; i < len(valArr); i++ {
+        lookBackIdx := i-1
+        currentVal := valArr[i]
+        count := 0
+        for lookBackIdx >= 0 && (currentVal - valArr[lookBackIdx] <= 3) {
+            count = count + diffArr[lookBackIdx]
+            lookBackIdx--
+        }
+        diffArr[i] = count
+    }
+    return diffArr[len(diffArr)-1]
 }
 
 func countNumberOfLinks(inputVals []int) int {
