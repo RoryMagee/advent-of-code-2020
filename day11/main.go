@@ -9,12 +9,11 @@ import (
 
 func main() {
     fmt.Println("Day11")
-    inputVals := readFile("./testinput")
+    inputVals := readFile("./input")
     applyRules(inputVals)
     for true {
         res := applyRules(inputVals)
         if res {
-            fmt.Println(inputVals)
             fmt.Println(countOccupied(inputVals))
             break
         }
@@ -98,17 +97,22 @@ func applyRules(inputVals [][]string) bool {
                 }
                 //Update Node
                 if count == 0 {
-                    plan[i][j] = "#"
+                    inputVals[i][j] = "#"
                 }
                 if count >= 4 {
-                    plan[i][j] = "L"
+                    inputVals[i][j] = "L"
                 }
             }
         }
-        //fmt.Println(plan[i])
     }
-    inputVals = plan
     return hasChanged
+}
+
+func printPlan(plan [][]string) {
+    fmt.Println("-------------")
+    for i := 0; i < len(plan); i++ {
+        fmt.Println(plan[i])
+    }
 }
 
 func readFile(path string) [][]string {
