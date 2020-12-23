@@ -9,7 +9,7 @@ import (
 
 func main() {
     fmt.Println("Day11")
-    inputVals := readFile("./input")
+    inputVals := readFile("./testinput")
     applyRules(inputVals)
     for true {
         res := applyRules(inputVals)
@@ -97,14 +97,15 @@ func applyRules(inputVals [][]string) bool {
                 }
                 //Update Node
                 if count == 0 {
-                    inputVals[i][j] = "#"
+                    plan[i][j] = "#"
                 }
                 if count >= 4 {
-                    inputVals[i][j] = "L"
+                    plan[i][j] = "L"
                 }
             }
         }
     }
+    printPlan(inputVals)
     return hasChanged
 }
 
