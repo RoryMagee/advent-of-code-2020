@@ -33,9 +33,9 @@ func countOccupied(plan [][]string) int {
     return count
 }
 
-func applyRules(plan [][]string) bool {
+func applyRules(inputVals [][]string) bool {
     hasChanged := false
-
+    plan := append([][]string(nil), inputVals...)
     for i := 0; i < len(plan); i++ {
         for j := 0; j < len(plan[0]); j++ {
             if plan[i][j] != "." {
@@ -107,6 +107,7 @@ func applyRules(plan [][]string) bool {
         }
         //fmt.Println(plan[i])
     }
+    inputVals = plan
     return hasChanged
 }
 
