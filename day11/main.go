@@ -11,6 +11,26 @@ func main() {
     fmt.Println("Day11")
     inputVals := readFile("./testinput")
     applyRules(inputVals)
+    for true {
+        res := applyRules(inputVals)
+        if res {
+            fmt.Println(inputVals)
+            fmt.Println(countOccupied(inputVals))
+            break
+        }
+    }
+}
+
+func countOccupied(plan [][]string) int {
+    count := 0
+    for i := 0; i < len(plan); i++ {
+        for j := 0; j < len(plan[i]); j++ {
+            if plan[i][j] == "#" {
+                count = count + 1
+            }
+        }
+    }
+    return count
 }
 
 func applyRules(plan [][]string) bool {
@@ -76,11 +96,16 @@ func applyRules(plan [][]string) bool {
                         hasChanged = true
                     }
                 }
-                fmt.Println(count)
                 //Update Node
-
+                if count == 0 {
+                    plan[i][j] = "#"
+                }
+                if count >= 4 {
+                    plan[i][j] = "L"
+                }
             }
         }
+        //fmt.Println(plan[i])
     }
     return hasChanged
 }
