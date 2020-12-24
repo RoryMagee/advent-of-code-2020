@@ -33,11 +33,15 @@ func countOccupied(plan [][]string) int {
 
 func applyRules(inputVals [][]string) bool {
     hasChanged := false
-    plan := append([][]string(nil), inputVals...)
+    plan := make([][]string, len(inputVals))
+    for x := range inputVals {
+        plan[x] = make([]string, len(inputVals[x]))
+        copy(inputVals[x], plan[x])
+    }
     for i := 0; i < len(plan); i++ {
         for j := 0; j < len(plan[0]); j++ {
+            count := 0
             if plan[i][j] != "." {
-                count := 0
                 //Check above
                 if i-1 >= 0 {
                     if plan[i-1][j] == "#" {
@@ -96,17 +100,24 @@ func applyRules(inputVals [][]string) bool {
                 }
                 //Update Node
                 if count == 0 {
-                    fmt.Printf("Updating [%d][%d] to #\n", i, j)
+                    fmt.Printf("Updating [%d][%d] to # because count is %d\n", i, j, count)
                     inputVals[i][j] = "#"
+                    fmt.Printf("INPUTVALS\n")
+                    printPlan(inputVals)
+                    fmt.Printf("PLAN\n")
+                    printPlan(plan)
                 }
                 if count >= 4 {
-                    fmt.Printf("Updating [%d][%d] to L\n", i,j)
+                    fmt.Printf("Updating [%d][%d] to L because count is %d\n", i,j, count)
                     inputVals[i][j] = "L"
+                    fmt.Printf("INPUTVALS\n")
+                    printPlan(inputVals)
+                    fmt.Printf("PLAN\n")
+                    printPlan(plan)
                 }
             }
         }
     }
-    printPlan(inputVals)
     return hasChanged
 }
 
