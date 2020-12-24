@@ -4,12 +4,14 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+    "time"
     "strings"
 )
 
 func main() {
     fmt.Println("Day11")
-    inputVals := readFile("./testinput")
+    inputVals := readFile("./input")
+    start := time.Now()
     for true {
         res := applyRules(inputVals)
         if res == false {
@@ -17,6 +19,7 @@ func main() {
             break
         }
     }
+    fmt.Println(time.Since(start))
 }
 
 func countOccupied(plan [][]string) int {
@@ -36,7 +39,7 @@ func applyRules(inputVals [][]string) bool {
     plan := make([][]string, len(inputVals))
     for x := range inputVals {
         plan[x] = make([]string, len(inputVals[x]))
-        copy(inputVals[x], plan[x])
+        copy(plan[x], inputVals[x])
     }
     for i := 0; i < len(plan); i++ {
         for j := 0; j < len(plan[0]); j++ {
@@ -46,74 +49,58 @@ func applyRules(inputVals [][]string) bool {
                 if i-1 >= 0 {
                     if plan[i-1][j] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Check below
                 if i+1 < len(plan) {
                     if plan[i+1][j] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Check left
                 if j-1 >= 0 {
                     if plan[i][j-1] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Check right
                 if j+1 < len(plan[0]) {
                     if plan[i][j+1] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Check top left
                 if i-1 >=0 && j-1 >=0 {
                     if plan[i-1][j-1] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Check top right
                 if i-1 >= 0 && j+1 < len(plan[0]) {
                     if plan[i-1][j+1] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Check bottom left
                 if i+1 < len(plan) && j-1 >= 0 {
                     if plan[i+1][j-1] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Check bottom right
                 if i+1 < len(plan) && j+1 < len(plan[0]) {
                     if plan[i+1][j+1] == "#" {
                         count++
-                        hasChanged = true
                     }
                 }
                 //Update Node
-                if count == 0 {
-                    fmt.Printf("Updating [%d][%d] to # because count is %d\n", i, j, count)
+                if count == 0 && inputVals[i][j] != "#" {
                     inputVals[i][j] = "#"
-                    fmt.Printf("INPUTVALS\n")
-                    printPlan(inputVals)
-                    fmt.Printf("PLAN\n")
-                    printPlan(plan)
+                    hasChanged = true
                 }
-                if count >= 4 {
-                    fmt.Printf("Updating [%d][%d] to L because count is %d\n", i,j, count)
+                if count >= 4 && inputVals[i][j] != "L" {
                     inputVals[i][j] = "L"
-                    fmt.Printf("INPUTVALS\n")
-                    printPlan(inputVals)
-                    fmt.Printf("PLAN\n")
-                    printPlan(plan)
+                    hasChanged = true
                 }
             }
         }
