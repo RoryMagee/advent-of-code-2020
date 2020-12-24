@@ -22,6 +22,17 @@ func main() {
     fmt.Println(time.Since(start))
 }
 
+func applyRulesS2(inputVals [][]string) bool {
+    hasChanged := false
+    plan := make([][]string, len(inputVals))
+    for x := range inputVals {
+        plan[x] = make([]string, len(inputVals[x]))
+        copy(plan[x], inputVals[x])
+    }
+
+    return hasChanged
+}
+
 func countOccupied(plan [][]string) int {
     count := 0
     for i := 0; i < len(plan); i++ {
@@ -32,17 +43,6 @@ func countOccupied(plan [][]string) int {
         }
     }
     return count
-}
-
-func applyRulesS2(inputVals [][]string) bool {
-    hasChanged := false
-    plan := make([][]string, len(inputVals))
-    for x := range inputVals {
-        plan[x] = make([]string, len(inputVals[x]))
-        copy(plan[x], inputVals[x])
-    }
-    // Apply rules here
-    return hasChanged
 }
 
 func applyRulesS1(inputVals [][]string) bool {
