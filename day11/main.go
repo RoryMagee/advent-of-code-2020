@@ -4,14 +4,21 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-    "time"
     "strings"
+)
+
+type direction int
+const(
+    left = -1
+    right = 1
+    up = -1
+    down = 1
+    still = 0
 )
 
 func main() {
     fmt.Println("Day11")
-    inputVals := readFile("./input")
-    start := time.Now()
+    inputVals := readFile("./testinput")
     for true {
         res := applyRulesS1(inputVals)
         if res == false {
@@ -19,18 +26,33 @@ func main() {
             break
         }
     }
-    fmt.Println(time.Since(start))
 }
 
 func applyRulesS2(inputVals [][]string) bool {
     hasChanged := false
     plan := make([][]string, len(inputVals))
+    directionArr := []direction{up, down, left, right}
     for x := range inputVals {
         plan[x] = make([]string, len(inputVals[x]))
         copy(plan[x], inputVals[x])
     }
 
+    for i := 0; i < len(plan); i++ {
+        for j := 0; j < len(plan[0]); j++ {
+            for direction := range directionArr {
+
+            }
+        }
+    }
+
     return hasChanged
+}
+
+func walkDirection(input [][]string, i int, j int, iDirection direction, 
+    jDirection direction) int {
+        count := 0
+
+        return count
 }
 
 func countOccupied(plan [][]string) int {
