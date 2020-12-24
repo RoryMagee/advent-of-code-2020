@@ -45,6 +45,31 @@ func applyRulesS2(inputVals [][]string) bool {
     return hasChanged
 }
 
+func walkDirection(inputVals [][]string) int {
+    // we want to walk from top left to bottom right
+    i := 0
+    j := 0
+    retVal := 0
+    for i < len(inputVals) && j < len(inputVals[0]) {
+        if inputVals[i][j] == "#" {
+            // Seat found
+            retVal = 1
+            break
+        }
+        i++
+        j++
+    }
+    return retVal
+}
+
+// e.g. call: walkDirectionTheSequel(inputVals, 0, 1)
+func walkDirectionTheSequel(inputVals [][]string, iVal int, jVal int, iInc int, jInc int) int {
+    i := iVal
+    j := jVal
+    retVal := 0
+
+}
+
 func applyRulesS1(inputVals [][]string) bool {
     hasChanged := false
     plan := make([][]string, len(inputVals))
