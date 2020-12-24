@@ -13,7 +13,7 @@ func main() {
     inputVals := readFile("./input")
     start := time.Now()
     for true {
-        res := applyRules(inputVals)
+        res := applyRulesS1(inputVals)
         if res == false {
             fmt.Println(countOccupied(inputVals))
             break
@@ -34,7 +34,18 @@ func countOccupied(plan [][]string) int {
     return count
 }
 
-func applyRules(inputVals [][]string) bool {
+func applyRulesS2(inputVals [][]string) bool {
+    hasChanged := false
+    plan := make([][]string, len(inputVals))
+    for x := range inputVals {
+        plan[x] = make([]string, len(inputVals[x]))
+        copy(plan[x], inputVals[x])
+    }
+    // Apply rules here
+    return hasChanged
+}
+
+func applyRulesS1(inputVals [][]string) bool {
     hasChanged := false
     plan := make([][]string, len(inputVals))
     for x := range inputVals {
