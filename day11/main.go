@@ -50,7 +50,10 @@ func applyRulesS2(inputVals [][]string) bool {
     for i := 0; i < len(plan); i++ {
         for j := 0; j < len(plan[0]); j++ {
             for i := 0; i < len(directions); i++ {
-                fmt.Println(directions[0])
+                curr := directions[i]
+                fmt.Println(curr[0])
+                fmt.Println(curr[1])
+                fmt.Printf("--------------\n")
             }
         }
     }
