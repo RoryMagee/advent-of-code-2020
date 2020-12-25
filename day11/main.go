@@ -26,12 +26,22 @@ func main() {
             break
         }
     }
+    inputVals = readFile("./testinput")
+    applyRulesS2(inputVals)
 }
 
 func applyRulesS2(inputVals [][]string) bool {
+    left := []int{0, -1}
+    right := []int{0, 1}
+    up := []int{-1, 0}
+    down := []int{1, 0}
+    topleft := []int{-1, -1}
+    topright := []int{-1, 1}
+    botleft := []int{1, -1}
+    botright := []int{1, 1}
+    directions := [][]int{left, right, up, down, topleft, topright, botleft, botright}
     hasChanged := false
     plan := make([][]string, len(inputVals))
-    directionArr := []direction{up, down, left, right}
     for x := range inputVals {
         plan[x] = make([]string, len(inputVals[x]))
         copy(plan[x], inputVals[x])
@@ -39,8 +49,8 @@ func applyRulesS2(inputVals [][]string) bool {
 
     for i := 0; i < len(plan); i++ {
         for j := 0; j < len(plan[0]); j++ {
-            for direction := range directionArr {
-
+            for i := 0; i < len(directions); i++ {
+                fmt.Println(directions[0])
             }
         }
     }

@@ -18,8 +18,8 @@ func main() {
     fmt.Println("day 8")
     inputVals := readFile("./input")
     parsedInput := parseInput(inputVals)
-    //solution1Terminates, solution1Acc := checkIfProgramTerminates(parsedInput)
-    //fmt.Println("Solution 1", solution1Terminates, solution1Acc)
+    solution1Terminates, solution1Acc := checkIfProgramTerminates(parsedInput)
+    fmt.Println("Solution 1", solution1Terminates, solution1Acc)
     reset(parsedInput)
     for i := 0; i < len(parsedInput); i++ {
         if parsedInput[i].operation == "jmp" {
@@ -29,7 +29,6 @@ func main() {
         }
         t, a := checkIfProgramTerminates(parsedInput)
         reset(parsedInput)
-        printOperations(parsedInput)
         if t == true {
             fmt.Println("solution2", a)
             break
