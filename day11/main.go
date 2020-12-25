@@ -52,7 +52,7 @@ func applyRulesS2(inputVals [][]string) bool {
         for j := 0; j < len(plan[0]); j++ {
             for i := 0; i < len(directions); i++ {
                 curr := directions[i]
-
+                
             }
         }
     }
@@ -62,8 +62,26 @@ func applyRulesS2(inputVals [][]string) bool {
 
 func walkDirection(input [][]string, i int, j int, iDirection int, 
     jDirection int) int {
-        if iDirection > 0 { // We need to make sure i < len()
+        for true {
+            if iDirection == 1 { // We need to make sure i < len(input)
+                if i < len(input) {
+                    i = i + iDirection
+                }
+            } else if iDirection == -1 { // We need to make sure i >= 0
+                if i > 0 {
+                    i = i + iDirection
+                }
+            }
 
+            if jDirection == 1 { // We need to make sure j < len(input[0])
+                if j < len(input[0]) {
+                    j = j + jDirection
+                }
+            } else if jDirection == -1 { // We need to make sure j >= 0
+                if j > 0 {
+                    j = j + jDirection
+                }
+            }
         }
         return 1
 }
