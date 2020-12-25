@@ -18,16 +18,23 @@ const(
 
 func main() {
     fmt.Println("Day11")
+    //inputVals := readFile("./testinput")
+    //for true {
+    //    res := applyRulesS1(inputVals)
+    //    if res == false {
+    //        fmt.Println(countOccupied(inputVals))
+    //        break
+    //    }
+    //}
     inputVals := readFile("./testinput")
     for true {
-        res := applyRulesS1(inputVals)
+        printPlan(inputVals)
+        res := applyRulesS2(inputVals)
         if res == false {
             fmt.Println(countOccupied(inputVals))
             break
         }
     }
-    inputVals = readFile("./testinput")
-    applyRulesS2(inputVals)
 }
 
 func applyRulesS2(inputVals [][]string) bool {
@@ -47,43 +54,68 @@ func applyRulesS2(inputVals [][]string) bool {
         plan[x] = make([]string, len(inputVals[x]))
         copy(plan[x], inputVals[x])
     }
-
     for i := 0; i < len(plan); i++ {
         for j := 0; j < len(plan[0]); j++ {
-            for i := 0; i < len(directions); i++ {
-                curr := directions[i]
-                
+            if plan[i][j] != "." {
+                count := 0
+                for i := 0; i < len(directions); i++ {
+                    curr := directions[i]
+                    count = count + walkDirection(plan, i, j, curr[0], curr[1])
+                }
+                if count == 0 && inputVals[i][j] != "#" {
+                    inputVals[i][j] = "#"
+                    hasChanged = true
+                }
+                if count >= 5 && inputVals[i][j] != "L" {
+                    inputVals[i][j] = "L"
+                    hasChanged = true
+                }
             }
         }
     }
-
     return hasChanged
 }
 
 func walkDirection(input [][]string, i int, j int, iDirection int, 
     jDirection int) int {
+        retValue := 0
         for true {
             if iDirection == 1 { // We need to make sure i < len(input)
-                if i < len(input) {
+                if i < len(input) - 1 {
                     i = i + iDirection
+                } else {
+                    break
                 }
             } else if iDirection == -1 { // We need to make sure i >= 0
                 if i > 0 {
                     i = i + iDirection
+                } else {
+                    break
                 }
             }
 
             if jDirection == 1 { // We need to make sure j < len(input[0])
-                if j < len(input[0]) {
+                if j < len(input[0]) - 1 {
                     j = j + jDirection
+                } else {
+                    break
                 }
             } else if jDirection == -1 { // We need to make sure j >= 0
                 if j > 0 {
                     j = j + jDirection
+                } else {
+                    break
                 }
             }
+            if input[i][j] == "#" {
+                retValue = 1
+                break
+            }
+            if input[i][j] == "L" || input[i][j] == "."{
+                break
+            }
         }
-        return 1
+        return retValue
 }
 
 func countOccupied(plan [][]string) int {
