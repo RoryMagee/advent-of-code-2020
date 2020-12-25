@@ -31,6 +31,7 @@ func main() {
 }
 
 func applyRulesS2(inputVals [][]string) bool {
+    // [vertical][horizontal]
     left := []int{0, -1}
     right := []int{0, 1}
     up := []int{-1, 0}
@@ -51,9 +52,7 @@ func applyRulesS2(inputVals [][]string) bool {
         for j := 0; j < len(plan[0]); j++ {
             for i := 0; i < len(directions); i++ {
                 curr := directions[i]
-                fmt.Println(curr[0])
-                fmt.Println(curr[1])
-                fmt.Printf("--------------\n")
+
             }
         }
     }
@@ -61,11 +60,12 @@ func applyRulesS2(inputVals [][]string) bool {
     return hasChanged
 }
 
-func walkDirection(input [][]string, i int, j int, iDirection direction, 
-    jDirection direction) int {
-        count := 0
+func walkDirection(input [][]string, i int, j int, iDirection int, 
+    jDirection int) int {
+        if iDirection > 0 { // We need to make sure i < len()
 
-        return count
+        }
+        return 1
 }
 
 func countOccupied(plan [][]string) int {
