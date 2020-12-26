@@ -39,9 +39,22 @@ func main() {
     //}
 }
 
-func walkDirection(input [][]string, i int, j int, iDirection int, 
-jDirection int) int {
+func walkDirection(input [][]string, i int, j int) int {
+    left := []int{0, -1}
+    right := []int{0, 1}
+    up := []int{-1, 0}
+    down := []int{1, 0}
+    topleft := []int{-1, -1}
+    topright := []int{-1, 1}
+    botleft := []int{1, -1}
+    botright := []int{1, 1}
+    directions := [][]int{left, right, up, down, topleft, topright, botleft, botright}
     retValue := 0
+    for dir := range directions {
+        for (i + dir[0] < len(input) && i > 0) && (j + jDirection < len(input[0]) && j > 0){
+
+        }
+    }
     for (i + iDirection < len(input) && i > 0) && (j + jDirection < len(input[0]) && j > 0){
         i = i + iDirection
         j = j + jDirection
@@ -58,15 +71,6 @@ jDirection int) int {
 
 func applyRulesS2(inputVals [][]string) bool {
     // [vertical][horizontal]
-    left := []int{0, -1}
-    right := []int{0, 1}
-    up := []int{-1, 0}
-    down := []int{1, 0}
-    topleft := []int{-1, -1}
-    topright := []int{-1, 1}
-    botleft := []int{1, -1}
-    botright := []int{1, 1}
-    directions := [][]int{left, right, up, down, topleft, topright, botleft, botright}
     hasChanged := false
     plan := make([][]string, len(inputVals))
     for x := range inputVals {
