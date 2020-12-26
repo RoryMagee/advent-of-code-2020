@@ -1,6 +1,7 @@
 package main
 
 import (
+    "time"
 	"bufio"
 	"fmt"
 	"os"
@@ -27,14 +28,26 @@ func main() {
     //    }
     //}
     inputVals := readFile("./testinput")
-    for true {
-        printPlan(inputVals)
-        res := applyRulesS2(inputVals)
-        if res == false {
-            fmt.Println(countOccupied(inputVals))
-            break
-        }
+    walkDirection2(inputVals, 9, 9, -1, -1)
+    //for true {
+    //    printPlan(inputVals)
+    //    res := applyRulesS2(inputVals)
+    //    if res == false {
+    //        fmt.Println(countOccupied(inputVals))
+    //        break
+    //    }
+    //}
+}
+
+func walkDirection2(input [][]string, i int, j int, iDirection int, 
+jDirection int) int {
+    retValue := 0
+    for (i + iDirection < len(input) && i >= 0)  && (j + jDirection < len(input[0]) && j >= 0){
+        i = i + iDirection
+        j = j + jDirection
+        fmt.Printf("[%d][%d]\n", i, j)
     }
+    return retValue
 }
 
 func applyRulesS2(inputVals [][]string) bool {
@@ -61,6 +74,7 @@ func applyRulesS2(inputVals [][]string) bool {
                 for i := 0; i < len(directions); i++ {
                     curr := directions[i]
                     count = count + walkDirection(plan, i, j, curr[0], curr[1])
+                    //fmt.Printf("[%d][%d] = %d\n", i, j, count)
                 }
                 if count == 0 && inputVals[i][j] != "#" {
                     inputVals[i][j] = "#"
@@ -75,6 +89,7 @@ func applyRulesS2(inputVals [][]string) bool {
     }
     return hasChanged
 }
+
 
 func walkDirection(input [][]string, i int, j int, iDirection int, 
     jDirection int) int {
@@ -107,11 +122,13 @@ func walkDirection(input [][]string, i int, j int, iDirection int,
                     break
                 }
             }
+            fmt.Printf("i: %d, j: %d\n", i, j)
+            time.Sleep(500 * time.Millisecond)
             if input[i][j] == "#" {
                 retValue = 1
                 break
             }
-            if input[i][j] == "L" || input[i][j] == "."{
+            if input[i][j] == "L" {
                 break
             }
         }
