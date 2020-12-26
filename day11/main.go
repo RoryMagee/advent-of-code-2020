@@ -27,8 +27,8 @@ func main() {
     //        break
     //    }
     //}
-    inputVals := readFile("./testinput")
-    walkDirection2(inputVals, 9, 9, -1, -1)
+    inputVals := readFile("./8count")
+    applyRulesS2(inputVals)
     //for true {
     //    printPlan(inputVals)
     //    res := applyRulesS2(inputVals)
@@ -39,13 +39,19 @@ func main() {
     //}
 }
 
-func walkDirection2(input [][]string, i int, j int, iDirection int, 
+func walkDirection(input [][]string, i int, j int, iDirection int, 
 jDirection int) int {
     retValue := 0
-    for (i + iDirection < len(input) && i >= 0)  && (j + jDirection < len(input[0]) && j >= 0){
+    for (i + iDirection < len(input) && i > 0) && (j + jDirection < len(input[0]) && j > 0){
         i = i + iDirection
         j = j + jDirection
-        fmt.Printf("[%d][%d]\n", i, j)
+        if input[i][j] == "L" {
+            break
+        }
+        if input[i][j] == "#" {
+            retValue = 1
+            break
+        }
     }
     return retValue
 }
@@ -69,18 +75,19 @@ func applyRulesS2(inputVals [][]string) bool {
     }
     for i := 0; i < len(plan); i++ {
         for j := 0; j < len(plan[0]); j++ {
+            count := 0
             if plan[i][j] != "." {
-                count := 0
                 for i := 0; i < len(directions); i++ {
                     curr := directions[i]
                     count = count + walkDirection(plan, i, j, curr[0], curr[1])
-                    //fmt.Printf("[%d][%d] = %d\n", i, j, count)
                 }
-                if count == 0 && inputVals[i][j] != "#" {
+                time.Sleep(250 * time.Millisecond)
+                fmt.Printf("[%d][%d] : %d\n", i, j, count)
+                if count == 0 && plan[i][j] != "#" {
                     inputVals[i][j] = "#"
                     hasChanged = true
                 }
-                if count >= 5 && inputVals[i][j] != "L" {
+                if count >= 5 && plan[i][j] != "L" {
                     inputVals[i][j] = "L"
                     hasChanged = true
                 }
@@ -88,51 +95,6 @@ func applyRulesS2(inputVals [][]string) bool {
         }
     }
     return hasChanged
-}
-
-
-func walkDirection(input [][]string, i int, j int, iDirection int, 
-    jDirection int) int {
-        retValue := 0
-        for true {
-            if iDirection == 1 { // We need to make sure i < len(input)
-                if i < len(input) - 1 {
-                    i = i + iDirection
-                } else {
-                    break
-                }
-            } else if iDirection == -1 { // We need to make sure i >= 0
-                if i > 0 {
-                    i = i + iDirection
-                } else {
-                    break
-                }
-            }
-
-            if jDirection == 1 { // We need to make sure j < len(input[0])
-                if j < len(input[0]) - 1 {
-                    j = j + jDirection
-                } else {
-                    break
-                }
-            } else if jDirection == -1 { // We need to make sure j >= 0
-                if j > 0 {
-                    j = j + jDirection
-                } else {
-                    break
-                }
-            }
-            fmt.Printf("i: %d, j: %d\n", i, j)
-            time.Sleep(500 * time.Millisecond)
-            if input[i][j] == "#" {
-                retValue = 1
-                break
-            }
-            if input[i][j] == "L" {
-                break
-            }
-        }
-        return retValue
 }
 
 func countOccupied(plan [][]string) int {
