@@ -1,7 +1,6 @@
 package main
 
 import (
-    //"time"
 	"bufio"
 	"fmt"
 	"os"
@@ -23,15 +22,15 @@ func main() {
     for true {
         res := applyRulesS1(inputVals)
         if res == false {
-            fmt.Println(countOccupied(inputVals))
+            fmt.Println("solution1", countOccupied(inputVals))
             break
         }
     }
-    inputVals2 := readFile("./input")
+    inputVals = readFile("./input")
     for true {
-        res := applyRulesS2(inputVals2)
+        res := applyRulesS2(inputVals)
         if res == false {
-            fmt.Println(countOccupied(inputVals2))
+            fmt.Println("solution2", countOccupied(inputVals))
             break
         }
     }
@@ -53,7 +52,6 @@ func walkDirection(input [][]string, iIndex int, jIndex int) int {
         i := iIndex
         j := jIndex
         for (i + dir[0] < len(input) && i+ dir[0] >= 0) && (j + dir[1] < len(input[0]) && j + dir[1] >= 0){
-            //time.Sleep(100 * time.Millisecond)
             i = i + dir[0]
             j = j + dir[1]
             if input[i][j] == "L" {
@@ -69,7 +67,6 @@ func walkDirection(input [][]string, iIndex int, jIndex int) int {
 }
 
 func applyRulesS2(inputVals [][]string) bool {
-    // [vertical][horizontal]
     hasChanged := false
     plan := make([][]string, len(inputVals))
     for x := range inputVals {
@@ -81,7 +78,6 @@ func applyRulesS2(inputVals [][]string) bool {
             count := 0
             if plan[i][j] != "." {
                 count = walkDirection(plan, i, j)
-                //fmt.Printf("[%d][%d] : %d\n", i, j, count)
                 if count == 0 && plan[i][j] != "#" {
                     inputVals[i][j] = "#"
                     hasChanged = true
@@ -180,13 +176,6 @@ func applyRulesS1(inputVals [][]string) bool {
         }
     }
     return hasChanged
-}
-
-func printPlan(plan [][]string) {
-    fmt.Println("-------------")
-    for i := 0; i < len(plan); i++ {
-        fmt.Println(plan[i])
-    }
 }
 
 func readFile(path string) [][]string {
