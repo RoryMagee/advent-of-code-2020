@@ -3,21 +3,16 @@ package main
 import (
     "os"
     "bufio"
-    "strconv"
 )
 
-func readFile(path string) []map[string]int {
+func readFile(path string) []string {
     file, _ := os.Open(path)
     defer file.Close()
-    retVal := []map[string]int{}
+    var retVal []string
     scanner := bufio.NewScanner(file)
     for scanner.Scan() {
-        m := make(map[string]int)
         line := scanner.Text()
-        direction := string(line[0])
-        num, _ := strconv.Atoi(line[1:])
-        m[direction] = num
-        retVal = append(retVal, m)
+        retVal = append(retVal, line)
     }
     return retVal
 }
