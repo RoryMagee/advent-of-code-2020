@@ -51,7 +51,8 @@ func walkDirection(input [][]string, iIndex int, jIndex int) int {
         dir := directions[i]
         i := iIndex
         j := jIndex
-        for (i + dir[0] < len(input) && i+ dir[0] >= 0) && (j + dir[1] < len(input[0]) && j + dir[1] >= 0){
+        for i + dir[0] < len(input) && i+ dir[0] >= 0 &&
+        j + dir[1] < len(input[0]) && j + dir[1] >= 0{
             i = i + dir[0]
             j = j + dir[1]
             if input[i][j] == "L" {
