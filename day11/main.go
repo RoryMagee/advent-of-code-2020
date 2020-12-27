@@ -1,7 +1,7 @@
 package main
 
 import (
-    "time"
+    //"time"
 	"bufio"
 	"fmt"
 	"os"
@@ -19,27 +19,25 @@ const(
 
 func main() {
     fmt.Println("Day11")
-    //inputVals := readFile("./testinput")
-    //for true {
-    //    res := applyRulesS1(inputVals)
-    //    if res == false {
-    //        fmt.Println(countOccupied(inputVals))
-    //        break
-    //    }
-    //}
-    inputVals := readFile("./8count")
-    applyRulesS2(inputVals)
-    //for true {
-    //    printPlan(inputVals)
-    //    res := applyRulesS2(inputVals)
-    //    if res == false {
-    //        fmt.Println(countOccupied(inputVals))
-    //        break
-    //    }
-    //}
+    inputVals := readFile("./testinput")
+    for true {
+        res := applyRulesS1(inputVals)
+        if res == false {
+            fmt.Println(countOccupied(inputVals))
+            break
+        }
+    }
+    inputVals2 := readFile("./input")
+    for true {
+        res := applyRulesS2(inputVals2)
+        if res == false {
+            fmt.Println(countOccupied(inputVals2))
+            break
+        }
+    }
 }
 
-func walkDirection(input [][]string, i int, j int) int {
+func walkDirection(input [][]string, iIndex int, jIndex int) int {
     left := []int{0, -1}
     right := []int{0, 1}
     up := []int{-1, 0}
@@ -50,20 +48,21 @@ func walkDirection(input [][]string, i int, j int) int {
     botright := []int{1, 1}
     directions := [][]int{left, right, up, down, topleft, topright, botleft, botright}
     retValue := 0
-    for dir := range directions {
-        for (i + dir[0] < len(input) && i > 0) && (j + jDirection < len(input[0]) && j > 0){
-
-        }
-    }
-    for (i + iDirection < len(input) && i > 0) && (j + jDirection < len(input[0]) && j > 0){
-        i = i + iDirection
-        j = j + jDirection
-        if input[i][j] == "L" {
-            break
-        }
-        if input[i][j] == "#" {
-            retValue = 1
-            break
+    for i := 0; i < len(directions); i++ {
+        dir := directions[i]
+        i := iIndex
+        j := jIndex
+        for (i + dir[0] < len(input) && i+ dir[0] >= 0) && (j + dir[1] < len(input[0]) && j + dir[1] >= 0){
+            //time.Sleep(100 * time.Millisecond)
+            i = i + dir[0]
+            j = j + dir[1]
+            if input[i][j] == "L" {
+                break
+            }
+            if input[i][j] == "#" {
+                retValue = retValue + 1
+                break
+            }
         }
     }
     return retValue
@@ -81,12 +80,8 @@ func applyRulesS2(inputVals [][]string) bool {
         for j := 0; j < len(plan[0]); j++ {
             count := 0
             if plan[i][j] != "." {
-                for i := 0; i < len(directions); i++ {
-                    curr := directions[i]
-                    count = count + walkDirection(plan, i, j, curr[0], curr[1])
-                }
-                time.Sleep(250 * time.Millisecond)
-                fmt.Printf("[%d][%d] : %d\n", i, j, count)
+                count = walkDirection(plan, i, j)
+                //fmt.Printf("[%d][%d] : %d\n", i, j, count)
                 if count == 0 && plan[i][j] != "#" {
                     inputVals[i][j] = "#"
                     hasChanged = true
