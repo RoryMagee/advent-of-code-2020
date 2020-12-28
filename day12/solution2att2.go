@@ -6,7 +6,7 @@ import (
 
 func solution1att2() {
     fmt.Println("attemp2")
-    inputVals := readFile("./testinput")
+    inputVals := readFile("./testinput2")
     eastWestTotal := 0
     northSouthTotal := 0
     currentDirection := [2]int{0, 1}
@@ -14,24 +14,48 @@ func solution1att2() {
     for i := 0; i < len(inputVals); i++ {
         dir := string(inputVals[i][0])
         dis, _ := strconv.Atoi(inputVals[i][1:])
-        if dir == "N" || dir == "S" {
+        fmt.Println("dir", dir, "dis", dis)
+        if dir == "N" {
             northSouthTotal = northSouthTotal + dis
         }
-        if dir == "E" || dir == "W" {
+        if dir == "S" {
+            northSouthTotal = northSouthTotal - dis
+        }
+        if dir == "E" {
             eastWestTotal = eastWestTotal + dis
+        }
+        if dir == "W" {
+            eastWestTotal = eastWestTotal - dis
         }
         if dir == "L" || dir == "R" {
             // Here we need to update currentDirection value
-            fmt.Println("Before", currentDirection)
+            fmt.Println("before", currentDirection, dir, dis)
             updateCurrentDirection(dir, dis, currentDirection)
-            fmt.Println("After", currentDirection)
+            fmt.Println("after", currentDirection)
         }
         if dir == "F" {
             // Here we need to move dist in whatever direction currentDirection is
-            fmt.Println("FFFF")
+            i := currentDirection[0]
+            j := currentDirection[1]
+            if (i == 0 && j == 1) {
+                eastWestTotal = eastWestTotal + dis
+            } else if i == 0 && j == -1 {
+                eastWestTotal = eastWestTotal - dis
+            } else if i == -1 && j == 0 {
+                northSouthTotal = northSouthTotal + dis
+            } else {
+                northSouthTotal = northSouthTotal - dis
+            }
         }
     }
 }
+
+/* Clockwise rotation
+east: 0, 1
+sound: 1, 0
+west: 0, -1
+north: -1, 0
+*/
 
 func updateCurrentDirection(dir string, dis int, currentDirection [2]int) {
     var noOfTurns int
@@ -45,7 +69,7 @@ func updateCurrentDirection(dir string, dis int, currentDirection [2]int) {
     for i := 0; i < noOfTurns; i++ {
         increment(&currentDirection)
     }
-    fmt.Println("currentDirection", currentDirection)
+    //fmt.Println("currentDirection", currentDirection)
 }
 
 func abs(num int) int {
@@ -78,10 +102,3 @@ func increment(i* [2]int) {
         }
     }
 }
-
-/* Clockwise rotation
-0, 1
-1, 0
-0, -1
--1, 0
-*/
