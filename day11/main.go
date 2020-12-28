@@ -37,10 +37,10 @@ func main() {
 }
 
 func walkDirection(input [][]string, iIndex int, jIndex int) int {
-    left := []int{0, -1}
     right := []int{0, 1}
-    up := []int{-1, 0}
     down := []int{1, 0}
+    left := []int{0, -1}
+    up := []int{-1, 0}
     topleft := []int{-1, -1}
     topright := []int{-1, 1}
     botleft := []int{1, -1}
