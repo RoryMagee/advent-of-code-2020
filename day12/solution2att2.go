@@ -6,7 +6,7 @@ import (
 
 func solution1att2() {
     fmt.Println("attemp2")
-    inputVals := readFile("./testinput2")
+    inputVals := readFile("./input")
     eastWestTotal := 0
     northSouthTotal := 0
     currentDirection := [2]int{0, 1}
@@ -30,7 +30,7 @@ func solution1att2() {
         if dir == "L" || dir == "R" {
             // Here we need to update currentDirection value
             fmt.Println("before", currentDirection, dir, dis)
-            updateCurrentDirection(dir, dis, currentDirection)
+            updateCurrentDirection(dir, dis, &currentDirection)
             fmt.Println("after", currentDirection)
         }
         if dir == "F" {
@@ -48,6 +48,8 @@ func solution1att2() {
             }
         }
     }
+    fmt.Printf("%d+%d=%d\n", abs(eastWestTotal), abs(northSouthTotal),
+    abs(eastWestTotal) + abs(northSouthTotal))
 }
 
 /* Clockwise rotation
@@ -57,7 +59,7 @@ west: 0, -1
 north: -1, 0
 */
 
-func updateCurrentDirection(dir string, dis int, currentDirection [2]int) {
+func updateCurrentDirection(dir string, dis int, currentDirection* [2]int) {
     var noOfTurns int
     //noOfTurns := dis / 90
     if dir == "R" {
@@ -67,7 +69,7 @@ func updateCurrentDirection(dir string, dis int, currentDirection [2]int) {
     }
     fmt.Println("NoOfTurns", noOfTurns)
     for i := 0; i < noOfTurns; i++ {
-        increment(&currentDirection)
+        increment(currentDirection)
     }
     //fmt.Println("currentDirection", currentDirection)
 }
