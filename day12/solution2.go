@@ -17,15 +17,17 @@ func solution2() {
         switch dir {
         case "N":
 
-        }
         case "E":
 
-        }
         case "S":
 
-        }
         case "W":
 
-        }
+        case "R":
+
+        case "L":
+
+        case "F":
+
     }
 }
