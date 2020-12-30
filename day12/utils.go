@@ -35,9 +35,15 @@ func rotate(waypoint* [2]int) {
     i := waypoint[0]
     j := waypoint[1]
     waypoint[0] = -j
-    if i > 0 {
-
-    }
+    waypoint[1] = i
+    /*
+    i       j 
+    ----------
+    4       10
+    -10     4
+    -4      -10
+    10      -4
+    */
 }
 
 func increment(i* [2]int) {
