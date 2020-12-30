@@ -30,13 +30,9 @@ func solution2() {
         case "W":
             waypointPosition[1] = waypointPosition[1] - dis
         case "R":
-            fmt.Printf("Before: %d %d\n", waypointPosition[0], waypointPosition[1])
             rotate(&waypointPosition, dir, dis)
-            fmt.Printf("After: %d %d\n", waypointPosition[0], waypointPosition[1])
         case "L":
-            fmt.Printf("Before: %d %d\n", waypointPosition[0], waypointPosition[1])
             rotate(&waypointPosition, dir, dis)
-            fmt.Printf("After: %d %d\n", waypointPosition[0], waypointPosition[1])
         case "F":
             nsMovement := dis * waypointPosition[0]
             ewMovement := dis * waypointPosition[1]
