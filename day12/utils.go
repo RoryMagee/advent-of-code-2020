@@ -31,11 +31,20 @@ west: 0, -1
 north: -1, 0
 */
 
-func rotate(waypoint* [2]int) {
-    i := waypoint[0]
-    j := waypoint[1]
-    waypoint[0] = -j
-    waypoint[1] = i
+func rotate(waypoint* [2]int, dir string, dis int) {
+    var noOfTurns int
+    //noOfTurns := dis / 90
+    if dir == "R" {
+        noOfTurns = dis / 90
+    } else {
+        noOfTurns = (360 - dis) / 90
+    }
+    for x := 0; x < noOfTurns; x++ {
+        i := waypoint[0]
+        j := waypoint[1]
+        waypoint[0] = -j
+        waypoint[1] = i
+    }
     /*
     i       j 
     ----------
