@@ -20,15 +20,13 @@ func check(e error) {
 }
 
 func readFile() []int {
-    file, err := os.Open("./input")
-    check(err)
+    file, _ := os.Open("./input")
     defer file.Close()
 
     var lines []int
     scanner := bufio.NewScanner(file)
     for scanner.Scan() {
-        val, err := strconv.Atoi(scanner.Text())
-        check(err)
+        val, _ := strconv.Atoi(scanner.Text())
         lines = append(lines, val)
     }
     return lines
