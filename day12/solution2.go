@@ -29,9 +29,7 @@ func solution2() {
             waypointPosition[0] = waypointPosition[0] - dis
         case "W":
             waypointPosition[1] = waypointPosition[1] - dis
-        case "R":
-            rotate(&waypointPosition, dir, dis)
-        case "L":
+        case "R", "L":
             rotate(&waypointPosition, dir, dis)
         case "F":
             nsMovement := dis * waypointPosition[0]
